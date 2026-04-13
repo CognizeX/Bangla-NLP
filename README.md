@@ -138,3 +138,9 @@ curl -X PUT "http://localhost:6333/collections/docs" -H "Content-Type: applicati
 ```bash
 curl -X PUT "http://localhost:6333/collections/docs/points" -H "Content-Type: application/json" -d "{\"points\":[{\"id\":1,\"vector\":[0.1,0.2,0.3,0.4],\"payload\":{\"title\":\"doc1\"}}]}"
 ```
+
+### Test API Endpoint ✅
+
+```bash
+cd tests & pytest test_api.py
+```
