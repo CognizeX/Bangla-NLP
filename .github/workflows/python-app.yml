@@ -1,0 +1,54 @@
+name: NLP Project CI/CD
+
+on:
+  push:
+    branches: ["master"]
+  pull_request:
+    branches: ["master"]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Checkout code
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. Setup Python
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      # 3. Upgrade pip
+      - name: Upgrade pip
+        run: python -m pip install --upgrade pip
+
+      # 4. Install lightweight dependencies first
+      - name: Install core dependencies
+        run: |
+          pip install flake8 pytest
+
+      # 5. Install project dependencies (optimized)
+      - name: Install project requirements
+        run: |
+          if [ -f requirements.txt ]; then
+            pip install -r requirements.txt --prefer-binary
+          fi
+
+      # 6. Lint (strict errors only)
+      - name: Lint code
+        run: |
+          flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+
+      # 7. Lint (warnings allowed)
+      - name: Lint warnings
+        run: |
+          flake8 . --count --exit-zero --max-line-length=127 --statistics
+
+      # 8. Run tests
+      - name: Run tests
+        run: |
+          pytest -v
