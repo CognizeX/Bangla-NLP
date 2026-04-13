@@ -31,13 +31,13 @@
 - **Semester**: Spring 2025-2026
 - **Instructor**: [Dr. Md. Saef Ullah Miah](https://ping543f.github.io)
 
-## System Requirements Online
+## System Requirements
 
 - **Google Colab**: For online codebase and experimentation.
 - **Docker**: For deployment and reproducibility
-- **RAM**: 16GB ++
+- **RAM**: 16GB
 - **Storage**: 50GB Google Drive for dataset + model weights
-- **Python**: 3.11+
+- **Python**: 3.12+
 - **AI Libraries**: [`HuggingFace`](https://huggingface.co/transformers/), [`PyTorch`](https://pytorch.org/), [`Pytorch Geometric`](https://pytorch-geometric.readthedocs.io/en/latest/),  [`FastAPI`](https://fastapi.tiangolo.com/) & [`Streamlit`](https://streamlit.io/) .
 
 ### Included AI / Web Stack
@@ -59,55 +59,38 @@
 
 ### PROJECT STRUCTURE: `MVC`
 
-## 1.0 `Build`: Docker Contaner
+## 1.0 `🔥 Build`: Docker Contaner
 
 ```bash
 docker build -t nlp:latest .
 ```
 
-### 1.2 Check Libraries ✅
+## 1.1 `🚀 Run`: Docker Contaner
 
 ```bash
-pip list | grep -E 'transformers|torch|torch-geometric|fastapi|streamlit|tensorflow|tensorboard|sklearn|nltk'
+docker build -t nlp:latest .
 ```
 
-### 1.3 Run FastAPI ✅
+### 1.2 Check Libraries ⚖️
 
 ```bash
+docker exec -it nlp-container bash & pip list | grep -E 'transformers|torch|torch-geometric|fastapi|streamlit|tensorflow|tensorboard|sklearn|nltk'
+```
+
+### 1.3 Run 🌐: `FastAPI`, `Streamlit`, `TensorBoard` & `Jupyter Notebook` ✅
+
+```bash
+docker compose up -d --build && docker compose exec -d nlp streamlit run streamlit_app.py --server.address 0.0.0.0 --server.port 8501 && docker compose exec -d nlp tensorboard --logdir /app/runs --host 0.0.0.0 --port 6006 && docker compose up -d --build jupyter && docker compose ps
+```
+
+### 1.4 Watch: `Logs ✨`
+
+```bat
 docker compose logs -f nlp
+docker compose logs -f jupyter
 ```
 
-### 1.4 Run streamlit ✅
-
-```bash
-docker compose exec -d nlp streamlit run streamlit_app.py --server.address 0.0.0.0 --server.port 8501
-```
-
-### 1.5 Run TensorBoard for `Model Performance Dashboard` ✅
-
-```bash
-docker compose exec -d nlp tensorboard --logdir /app/runs --host 0.0.0.0 --port 6006
-```
-
-### 1.6 Run Jupyter Notebook ✅
-
-```bash
-docker compose up -d --build jupyter & docker compose logs -f jupyter
-```
-
-## 2.0 Start Server ✅
-
-```bash
-docker compose up -d --build
-```
-
-## 2.1 Docker Terminal (Get Access) ✅
-
-```bash
-docker exec -it nlp-container bash
-```
-
-### Links to access services ✅
+### 🔗 Access services
 
 - [Fastapi](http://localhost:8000)
 - [Swagger UI](http://localhost:8000/docs)
@@ -115,7 +98,7 @@ docker exec -it nlp-container bash
 - [TensorBoard](http://localhost:6006)
 - [Jupyter Notebook](http://localhost:8888/)
 
-### 1.8 Database & Vector DB Setup ✅
+### 1.8 📊 Database
 
 Create table as Like **seeding data on Database**
 
@@ -123,28 +106,30 @@ Create table as Like **seeding data on Database**
 docker exec -it nlp-postgres psql -U nlp -d nlpdb -c "CREATE TABLE IF NOT EXISTS documents (id SERIAL PRIMARY KEY, title TEXT, content TEXT);"
 ```
 
-**Add Row:** ✅
+- **Add Row:**
 
 ```bash
 docker exec -it nlp-postgres psql -U nlp -d nlpdb -c "INSERT INTO documents (title, content) VALUES ('doc1', 'sample text');"
 ```
 
-Create vector collection (**Qdrant, size=384**): ✅
+- Create vector collection (**Qdrant, size=384**):
 
 ```bash
 curl -X PUT "http://localhost:6333/collections/docs" -H "Content-Type: application/json" -d "{\"vectors\":{\"size\":384,\"distance\":\"Cosine\"}}"
 ```
 
-**Seed Vector Data:** ✅
+- **Seed Vector Data**
 
 ```bash
 curl -X PUT "http://localhost:6333/collections/docs/points" -H "Content-Type: application/json" -d "{\"points\":[{\"id\":1,\"vector\":[0.1,0.2,0.3,0.4],\"payload\":{\"title\":\"doc1\"}}]}"
 ```
 
-### Test API Endpoint ✅
+### Test API (Unit Test) 
 
 ```bash
 cd tests & pytest test_api.py
 # or in docker
 docker compose exec nlp sh -lc "cd /app && PYTHONPATH=/app pytest -q"
 ```
+
+> Test API with `Manualy` for High Stabalaty and Performance
