@@ -33,12 +33,10 @@
 
 ## System Requirements
 
-- **Google Colab**: For online codebase and experimentation.
-- **Docker**: For deployment and reproducibility
-- **RAM**: 16GB
-- **Storage**: 50GB Google Drive for dataset + model weights
+- **Google Colab**: For online codebase.
 - **Python**: 3.12+
-- **AI Libraries**: [`HuggingFace`](https://huggingface.co/transformers/), [`PyTorch`](https://pytorch.org/), [`Pytorch Geometric`](https://pytorch-geometric.readthedocs.io/en/latest/),  [`FastAPI`](https://fastapi.tiangolo.com/) & [`Streamlit`](https://streamlit.io/) .
+- **Docker Compose**: For multi-container orchestration
+- System: Windows 10/11 64-bit
 
 ### Included AI / Web Stack
 
@@ -68,7 +66,12 @@ docker build -t nlp:latest .
 ## 1.1 `🚀 Run`: Docker Contaner
 
 ```bash
-docker build -t nlp:latest .
+# CPU
+docker run -it nlp:latest /bin/bash
+# GPU
+docker run --gpus all -it nlp:latest
+# Production
+docker run -d -p 8000:8000 --name lie-ai-backend nlp:latest
 ```
 
 ### 1.2 Check Libraries ⚖️
