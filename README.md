@@ -75,19 +75,19 @@ pip list | grep -E 'transformers|torch|torch-geometric|fastapi|streamlit|tensorf
 docker compose logs -f nlp
 ```
 
-### 1.4 Run streamlit ❌
+### 1.4 Run streamlit ✅
 
 ```bash
 docker compose exec -d nlp streamlit run streamlit_app.py --server.address 0.0.0.0 --server.port 8501
 ```
 
-### 1.5 Run TensorBoard for `Model Performance Dashboard` ❌
+### 1.5 Run TensorBoard for `Model Performance Dashboard` ✅
 
 ```bash
 docker compose exec -d nlp tensorboard --logdir /app/runs --host 0.0.0.0 --port 6006
 ```
 
-### 1.6 Run Jupyter Notebook
+### 1.6 Run Jupyter Notebook ✅
 
 ```bash
 docker compose up -d --build jupyter & docker compose logs -f jupyter
@@ -105,7 +105,7 @@ docker compose up -d --build
 docker exec -it nlp-container bash
 ```
 
-### Links to access services
+### Links to access services ✅
 
 - [Fastapi](http://localhost:8000)
 - [Swagger UI](http://localhost:8000/docs)
@@ -113,7 +113,7 @@ docker exec -it nlp-container bash
 - [TensorBoard](http://localhost:6006)
 - [Jupyter Notebook](http://localhost:8888/)
 
-### 1.8 Database & Vector DB Setup
+### 1.8 Database & Vector DB Setup ✅
 
 Create table as Like **seeding data on Database**
 
@@ -121,19 +121,19 @@ Create table as Like **seeding data on Database**
 docker exec -it nlp-postgres psql -U nlp -d nlpdb -c "CREATE TABLE IF NOT EXISTS documents (id SERIAL PRIMARY KEY, title TEXT, content TEXT);"
 ```
 
-**Add Row:**
+**Add Row:** ✅
 
 ```bash
 docker exec -it nlp-postgres psql -U nlp -d nlpdb -c "INSERT INTO documents (title, content) VALUES ('doc1', 'sample text');"
 ```
 
-Create vector collection (**Qdrant, size=384**):
+Create vector collection (**Qdrant, size=384**): ✅
 
 ```bash
 curl -X PUT "http://localhost:6333/collections/docs" -H "Content-Type: application/json" -d "{\"vectors\":{\"size\":384,\"distance\":\"Cosine\"}}"
 ```
 
-**Seed Vector Data:**
+**Seed Vector Data:** ✅
 
 ```bash
 curl -X PUT "http://localhost:6333/collections/docs/points" -H "Content-Type: application/json" -d "{\"points\":[{\"id\":1,\"vector\":[0.1,0.2,0.3,0.4],\"payload\":{\"title\":\"doc1\"}}]}"
