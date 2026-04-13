@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NLP Project Dashboard</title>
+  <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+  <main class="container">
+    <h1>NLP Project Dashboard</h1>
+    <p>Applying Advanced Deep Learning, Computer Vision & NLP Techniques</p>
+
+    <section class="card">
+      <h2>Create Document</h2>
+      <form method="post" action="/documents">
+        <label>Title</label>
+        <input type="text" name="title" placeholder="Document title" required />
+
+        <label>Content</label>
+        <textarea name="content" rows="5" placeholder="Document content" required></textarea>
+
+        <button type="submit">Save to Database</button>
+      </form>
+    </section>
+
+    <section class="card">
+      <h2>Stored Documents</h2>
+      <ul>
+        {%- for d in documents -%}
+          <li>
+            <strong>{{ d.title }}</strong><br />
+            <span>{{ d.content }}</span>
+          </li>
+        {%- else -%}
+          <li>No documents yet.</li>
+        {%- endfor -%}
+      </ul>
+    </section>
+  </main>
+
+  <script src="/static/js/app.js"></script>
+</body>
+</html>
