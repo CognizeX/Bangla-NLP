@@ -2,6 +2,8 @@
 
 ![NLP Library](public/nlp-lib.jpg)
 
+> This Project Maintain by Github Action (CI/CD) for NLP Model Deployment and API Testing.
+
 ## **Account**
 
 - **Email**: [nlp.aiub.101@gmail.com](mailto:nlp.aiub.101@gmail.com)
@@ -143,4 +145,6 @@ curl -X PUT "http://localhost:6333/collections/docs/points" -H "Content-Type: ap
 
 ```bash
 cd tests & pytest test_api.py
+# or in docker
+docker compose exec nlp sh -lc "cd /app && PYTHONPATH=/app pytest -q"
 ```
