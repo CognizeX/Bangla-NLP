@@ -33,6 +33,6 @@ RUN pip install \
 	-f https://data.pyg.org/whl/torch-2.3.0+cpu.html && \
 	pip install torch-geometric==2.5.3
 
-EXPOSE 8000 8501 6006 8888
+EXPOSE 8000 8888
 
 CMD ["sleep", "infinity"]
