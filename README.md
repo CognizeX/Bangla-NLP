@@ -33,99 +33,77 @@
 
 ## System Requirements
 
-- **Google Colab**: For online codebase.
-- **Python**: 3.12+
-- **Docker Compose**: For multi-container orchestration
-- System: Windows 10/11 64-bit
+- **Docker Desktop**: For multi-container orchestration
+- **Oparating System**: Windows 10/11 (64-bit)
+- **RAM**: Minimum 8GB (16GB recommended)
+- **CPU**: Intel i5/Ryzen 5 or higher
+- **GPU**: NVIDIA with CUDA support (optional but recommended for deep learning)
 
-### Included AI / Web Stack
+## **Visual Studio Code Extension (Must)**
 
-- `FastAPI` for backend APIs
-- `TensorFlow` for deep learning workflows
-- `scikit-learn` for classical ML and evaluation
-- `FastAPI Cloud` for cloud deployment support
+## Must Needed Extensions for NLP Project
 
-## Server Hosting
+- FastAPI Extension, DotENV, ESLint, ES7+                                                     (Must)
+- Rainbow CSV, Ruff, Shell Runner                                                             (Must)
+- vscode-pdf, WSL, markdownlint, npm Intellisense                                             (Must)
+- Tailwind CSS IntelliSense, Tailwind Fold, ty                                                (Optional)
+- Jupyter, Jupyter Cell Tags, Jupyter Keymap, Jupyter Notebook Renderers, Jupyter Slide Show  (Must)
+- Pylance, Pytest IntelliSense, Python, Python Debugger, Python Environments                  (Must)
 
-- **Only Backend**: [FastAPI](https://fastapicloud.com)
+## For Docker and Containerization
+
+- Docker, Docker DX, Docker Extension Pack, Docker Run                                        (Must)
+- Container Tools, Dev Containers, DevDb                                                      (Must)
+- Docker-IPython, Docker-Live                                                                 (Optional)  
+
+## Project Hosting platforms
+
+- **Backend**: [FastAPI](https://fastapicloud.com)
 - **Frontend**: [Next.js](https://nextjs.org/)
 - **Database**: [Supabase](https://supabase.com/)
 - **Vector DB**: [Pinecone](https://www.pinecone.io/)
-- **Model Hosting**: [HuggingFace Spaces](https://huggingface.co/spaces) or [Replicate](https://replicate.com/)
+- **Model Hosting**: [HuggingFace](https://huggingface.co/spaces) or [Replicate](https://replicate.com/)
 
-## Docker Setup (Windows 10/11)
+## Docker Setup
 
-### PROJECT STRUCTURE: `MVC`
-
-## 1.0 `🔥 Build`: Docker Contaner
+### 1.0 ⚒️ Build Docker Contaner
 
 ```bash
 docker build -t nlp:latest .
 ```
 
-## 1.1 `🚀 Run`: Docker Contaner
+### 1.1 ✨ Run Docker Contaner
 
 ```bash
-# CPU
-docker run -it nlp:latest /bin/bash
-# GPU
-docker run --gpus all -it nlp:latest
-# Production
 docker run -d -p 8000:8000 nlp:latest
 ```
 
-### 1.2 Check Libraries ⚖️
+### 1.2 ⚖️ Check Libraries
 
 ```bash
-docker exec -it nlp-container bash & pip list | grep -E 'transformers|torch|torch-geometric|fastapi|streamlit|tensorflow|tensorboard|sklearn|nltk'
+docker exec -it nlp-container bash && 
+pip list | grep -E 'transformers|torch|torch-geometric|fastapi|tensorflow|sklearn|nltk'
 ```
 
-### 1.3 Run 🌐: `FastAPI`, `Streamlit`, `TensorBoard` & `Jupyter Notebook` ✅
+### 1.3 🌐 Activate NLP Service
 
 ```bash
-docker compose up -d --build && docker compose exec -d nlp streamlit run streamlit_app.py --server.address 0.0.0.0 --server.port 8501 && docker compose exec -d nlp tensorboard --logdir /app/runs --host 0.0.0.0 --port 6006 && docker compose up -d --build jupyter && docker compose ps
+docker compose up -d --build && docker compose ps
 ```
 
-### 1.4 Watch: `Logs ✨`
+![NLP Library](public/server.png)
 
-```bat
-docker compose logs -f nlp
+### 1.4 🎦 Watch NLP Server `Logs`
+
+```bash
+docker compose logs -f nlp &&
 docker compose logs -f jupyter
 ```
 
-### 🔗 Access services
+### 1.5 🌐 Access Point for NLP Server
 
 - [Fastapi](http://localhost:8000)
-- [Swagger UI](http://localhost:8000/docs)
-- [Streamlit](http://localhost:8501)
-- [TensorBoard](http://localhost:6006)
 - [Jupyter Notebook](http://localhost:8888/)
-
-### 1.8 📊 Database
-
-Create table as Like **seeding data on Database**
-
-```bash
-docker exec -it nlp-postgres psql -U nlp -d nlpdb -c "CREATE TABLE IF NOT EXISTS documents (id SERIAL PRIMARY KEY, title TEXT, content TEXT);"
-```
-
-- **Add Row:**
-
-```bash
-docker exec -it nlp-postgres psql -U nlp -d nlpdb -c "INSERT INTO documents (title, content) VALUES ('doc1', 'sample text');"
-```
-
-- Create vector collection (**Qdrant, size=384**):
-
-```bash
-curl -X PUT "http://localhost:6333/collections/docs" -H "Content-Type: application/json" -d "{\"vectors\":{\"size\":384,\"distance\":\"Cosine\"}}"
-```
-
-- **Seed Vector Data**
-
-```bash
-curl -X PUT "http://localhost:6333/collections/docs/points" -H "Content-Type: application/json" -d "{\"points\":[{\"id\":1,\"vector\":[0.1,0.2,0.3,0.4],\"payload\":{\"title\":\"doc1\"}}]}"
-```
 
 ### Test API (Unit Test)
 
