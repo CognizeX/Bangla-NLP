@@ -71,7 +71,7 @@ docker run -it nlp:latest /bin/bash
 # GPU
 docker run --gpus all -it nlp:latest
 # Production
-docker run -d -p 8000:8000 --name lie-ai-backend nlp:latest
+docker run -d -p 8000:8000 nlp:latest
 ```
 
 ### 1.2 Check Libraries ⚖️
@@ -127,7 +127,7 @@ curl -X PUT "http://localhost:6333/collections/docs" -H "Content-Type: applicati
 curl -X PUT "http://localhost:6333/collections/docs/points" -H "Content-Type: application/json" -d "{\"points\":[{\"id\":1,\"vector\":[0.1,0.2,0.3,0.4],\"payload\":{\"title\":\"doc1\"}}]}"
 ```
 
-### Test API (Unit Test) 
+### Test API (Unit Test)
 
 ```bash
 cd tests & pytest test_api.py
