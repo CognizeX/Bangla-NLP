@@ -33,15 +33,13 @@
 
 ## System Requirements
 
-- **Docker Desktop**: For multi-container orchestration
+- **Docker Desktop**: Multi-container orchestration
 - **Oparating System**: Windows 10/11 (64-bit)
-- **RAM**: Minimum 8GB (16GB recommended)
+- **RAM**: Minimum 8GB.
 - **CPU**: Intel i5/Ryzen 5 or higher
-- **GPU**: NVIDIA with CUDA support (optional but recommended for deep learning)
+- **GPU**: NVIDIA with CUDA support.
 
-## **Visual Studio Code Extension (Must)**
-
-## Must Needed Extensions for NLP Project
+## Mandatory  VS Code Extension
 
 - FastAPI Extension, DotENV, ESLint, ES7+                                                     (Must)
 - Rainbow CSV, Ruff, Shell Runner                                                             (Must)
