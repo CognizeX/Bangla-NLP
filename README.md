@@ -56,36 +56,28 @@
 - Container Tools, Dev Containers, DevDb                                                      (Must)
 - Docker-IPython, Docker-Live                                                                 (Optional)  
 
-## Project Hosting platforms
-
-- **Backend**: [FastAPI](https://fastapicloud.com)
-- **Frontend**: [Next.js](https://nextjs.org/)
-- **Database**: [Supabase](https://supabase.com/)
-- **Vector DB**: [Pinecone](https://www.pinecone.io/)
-- **Model Hosting**: [HuggingFace](https://huggingface.co/spaces) or [Replicate](https://replicate.com/)
-
 ## Docker Setup
 
-### 1.0 ⚒️ Build Docker Contaner
+### 1. ⚒️ Build Docker Contaner
 
 ```bash
 docker build -t nlp:latest .
 ```
 
-### 1.1 ✨ Run Docker Contaner
+### 2. ✨ Run Docker Contaner
 
 ```bash
 docker run -d -p 8000:8000 nlp:latest
 ```
 
-### 1.2 ⚖️ Check Libraries
+### 3. ⚖️ Check Libraries
 
 ```bash
 docker exec -it nlp-container bash && 
 pip list | grep -E 'transformers|torch|torch-geometric|fastapi|tensorflow|sklearn|nltk'
 ```
 
-### 1.3 🌐 Activate NLP Service
+### 4. 🌐 Activate NLP Service
 
 ```bash
 docker compose up -d --build && docker compose ps
@@ -93,19 +85,19 @@ docker compose up -d --build && docker compose ps
 
 ![NLP Library](public/server.png)
 
-### 1.4 🎦 Watch NLP Server `Logs`
+### 5. 🎦 Watch NLP Server `Logs`
 
 ```bash
 docker compose logs -f nlp &&
 docker compose logs -f jupyter
 ```
 
-### 1.5 🌐 Access Point for NLP Server
+### 6. 🌐 Access Point for NLP Server
 
 - [Fastapi](http://localhost:8000)
 - [Jupyter Notebook](http://localhost:8888/)
 
-### Test API (Unit Test)
+### 7. Test API (Unit Test)
 
 ```bash
 cd tests & pytest test_api.py
@@ -113,4 +105,29 @@ cd tests & pytest test_api.py
 docker compose exec nlp sh -lc "cd /app && PYTHONPATH=/app pytest -q"
 ```
 
-> Test API with `Manualy` for High Stabalaty and Performance
+### 7. Test API (Manualy Tested)
+
+> Checking `FastAPI` Endpoints Behaver and system is working Properly or not.
+
+### 8. Create Next.js Frontend
+
+- creat a Next.js frontend to interact with the FastAPI backend and display results.
+- make sure to handle CORS and API calls properly.
+- Chacking Data Is Coming or not from FastAPI to Next.js
+
+### 9. Deploy to Cloud
+
+- **Backend**: [FastAPI](https://fastapicloud.com)
+- **Frontend**: [Next.js](https://nextjs.org/)
+- **Database**: [Supabase](https://supabase.com/)
+- **Vector DB**: [Pinecone](https://www.pinecone.io/)
+- **Model Hosting**: [HuggingFace](https://huggingface.co/spaces) or [Replicate](https://replicate.com/)
+
+### 10. Make Presentation Slides
+
+- Create a presentation summarizing the project, including architecture, implementation details, and results.
+- Use tools like PowerPoint, Google Slides, or Canva for design.
+- Prepare to present the project to the class, highlighting key features and challenges faced during development.
+- Practice the presentation to ensure clarity and confidence during delivery.
+- Include a demo of the application if possible, showcasing its functionality and user interface.
+- Be ready to answer questions from the audience about the project, its implementation, and potential future improvements.
