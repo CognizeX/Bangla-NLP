@@ -12,8 +12,6 @@ services:
       - model_weights:/app/model_weights
     ports:
       - "8000:8000"   # FastAPI
-      - "8501:8501"   # Streamlit
-      - "6006:6006"   # TensorBoard
     environment:
       DATABASE_URL: postgresql://nlp:nlp@postgres:5432/nlpdb
       QDRANT_URL: http://qdrant:6333
